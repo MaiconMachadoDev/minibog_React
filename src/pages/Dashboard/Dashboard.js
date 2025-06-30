@@ -143,55 +143,61 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {sortedPosts.map((post) => (
-              <div
-                key={post.id}
-                className="flex justify-between items-center bg-white p-4 border border-slate-200 rounded-md mb-3 hover:shadow transition"
+              {sortedPosts.map((post) => (
+          <div
+            key={post.id}
+            className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 border border-slate-200 rounded-md mb-3 hover:shadow transition"
+          >
+            <p className="flex-1 text-base font-medium text-gray-800 mb-2 md:mb-0">{post.title}</p>
+
+            <div className="w-full md:w-32 text-sm text-gray-500 text-left md:text-center mb-2 md:mb-0">
+              {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}
+            </div>
+
+            <div className="flex  sm:flex-row gap-2 w-full md:min-w-[240px] justify-end">
+              {/* Visualizar */}
+              <Link
+                to={`/posts/${post.id}`}
+                state={{ from: "dashboard" }}
+                className="group inline-flex items-center justify-center px-3 py-1 rounded border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
               >
-                <p className="flex-1 text-base font-medium text-gray-800">{post.title}</p>
-                <div className="w-32 text-sm text-gray-500 text-center">
-                  {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}
-                </div>
-                <div className="flex gap-2 min-w-[240px] justify-end">
-                  <Link
-                    to={`/posts/${post.id}`}
-                    state={{ from: "dashboard" }}
-                    className="group inline-flex items-center px-3 py-1 rounded border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
-                  >
-                    <span className="flex items-center transition-all duration-300 group-hover:translate-x-1">
-                      <EyeIcon className="w-5 h-5" />
-                    </span>
-                    <span className="overflow-hidden max-w-0 group-hover:max-w-[100px] group-hover:ml-2 transition-all duration-300">
-                      <span className="inline-block">Visualizar</span>
-                    </span>
-                  </Link>
+                <span className="flex items-center transition-all duration-300 sm:group-hover:translate-x-1">
+                  <EyeIcon className="w-5 h-5" />
+                </span>
+                <span className="overflow-hidden max-w-0 sm:group-hover:max-w-[100px] sm:group-hover:ml-2 transition-all duration-300">
+                  <span className="inline-block">Visualizar</span>
+                </span>
+              </Link>
 
-                  <Link
-                    to={`/post/edit/${post.id}`}
-                    className="group inline-flex items-center px-3 py-1 rounded border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
-                  >
-                    <span className="flex items-center transition-all duration-300 group-hover:translate-x-1">
-                      <PencilSquareIcon className="w-5 h-5" />
-                    </span>
-                    <span className="overflow-hidden max-w-0 group-hover:max-w-[100px] group-hover:ml-2 transition-all duration-300">
-                      <span className="inline-block">Editar</span>
-                    </span>
-                  </Link>
+              {/* Editar */}
+              <Link
+                to={`/post/edit/${post.id}`}
+                className="group inline-flex items-center justify-center px-3 py-1 rounded border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+              >
+                <span className="flex items-center transition-all duration-300 sm:group-hover:translate-x-1">
+                  <PencilSquareIcon className="w-5 h-5" />
+                </span>
+                <span className="overflow-hidden max-w-0 sm:group-hover:max-w-[100px] sm:group-hover:ml-2 transition-all duration-300">
+                  <span className="inline-block">Editar</span>
+                </span>
+              </Link>
 
-                  <button
-                    className="group inline-flex items-center px-3 py-1 rounded border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition"
-                    onClick={() => handleDeleteClick(post.id)}
-                  >
-                    <span className="flex items-center transition-all duration-300 group-hover:translate-x-1">
-                      <TrashIcon className="w-5 h-5" />
-                    </span>
-                    <span className="overflow-hidden max-w-0 group-hover:max-w-[100px] group-hover:ml-2 transition-all duration-300">
-                      <span className="inline-block">Excluir</span>
-                    </span>
-                  </button>
-                </div>
-              </div>
-            ))}
+              {/* Excluir */}
+              <button
+                className="group inline-flex items-center justify-center px-3 py-1 rounded border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition"
+                onClick={() => handleDeleteClick(post.id)}
+              >
+                <span className="flex items-center transition-all duration-300 sm:group-hover:translate-x-1">
+                  <TrashIcon className="w-5 h-5" />
+                </span>
+                <span className="overflow-hidden max-w-0 sm:group-hover:max-w-[100px] sm:group-hover:ml-2 transition-all duration-300">
+                  <span className="inline-block">Excluir</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        ))}
+
           </>
         )
       )}
